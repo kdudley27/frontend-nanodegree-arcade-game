@@ -2,8 +2,8 @@
 class Enemy {
     constructor(){
         this.sprite = 'images/enemy-bug.png';
-        this.x = 83;
-        this.y = 100;    
+        this.x = -100;
+        this.y = 145;    
     }
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
@@ -11,7 +11,7 @@ class Enemy {
     // which will ensure the game runs at the same speed for
     // all computers.
     update(dt){
-
+        this.x += 100 * dt;
     }
     // Draw the enemy on the screen, required method for game
     render(){
@@ -25,12 +25,9 @@ class Enemy {
 class Player {
     constructor(){
         this.sprite = 'images/char-pink-girl.png';
-        this.x = 6;
+        this.x = 4;
         this.y = 450;         
-    }  
-    update(){
-       
-    }
+    }    
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
@@ -50,6 +47,10 @@ class Player {
                 break;    
         }
     }
+    update(){
+        this.x;
+        this.y;
+     }
 }
 
 // Now instantiate your objects.
