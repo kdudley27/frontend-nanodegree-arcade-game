@@ -26,16 +26,29 @@ class Player {
     constructor(){
         this.sprite = 'images/char-pink-girl.png';
         this.x = 6;
-        this.y = 375;         
+        this.y = 450;         
     }  
     update(){
-
+       
     }
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
-    handleInput(){
-        
+    handleInput(keyCode){
+        switch(event.keyCode){
+            case 37:
+                this.x -= 101;
+                break;
+            case 38:
+                this.y -= 80;
+                break;
+            case 39:
+                this.x += 101;
+                break;
+            case 40:
+                this.y += 80;
+                break;    
+        }
     }
 }
 
