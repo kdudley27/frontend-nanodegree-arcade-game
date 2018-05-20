@@ -2,8 +2,10 @@
 class Enemy {
     constructor(){
         this.sprite = 'images/enemy-bug.png';
-        this.x = -100;
-        this.y = 145;    
+        this.x = Math.floor(Math.random() * 150) + 1;
+        this.rowArray = [62, 145, 228, 311];        
+        this.y = this.rowArray[Math.floor(Math.random()*this.rowArray.length)];
+        this.speed = Math.floor(Math.random() * 200) + 100; 
     }
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
@@ -11,14 +13,18 @@ class Enemy {
     // which will ensure the game runs at the same speed for
     // all computers.
     update(dt){
-        this.x += 100 * dt;
+        this.x += this.speed * dt;
+        //when bug leaves the screen it is placed again
+        if(this.x > 550){
+            this.x = Math.floor(Math.random() * 10) + 1;
+            this.y = this.rowArray[Math.floor(Math.random()*this.rowArray.length)];
+        }
     }
     // Draw the enemy on the screen, required method for game
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 }
-
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -26,7 +32,7 @@ class Player {
     constructor(){
         this.sprite = 'images/char-pink-girl.png';
         this.x = 4;
-        this.y = 450;         
+        this.y = 390;         
     }    
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -48,9 +54,34 @@ class Player {
         }
     }
     update(){
-        this.x;
-        this.y;
+        //sets player to start when reaching water        
+        if(this.y < 10){            
+            this.x = 4;
+            this.y = 390;       
+        }    
+        //if player goes left off screen teleports to right side
+        if(this.x < 1){
+            this.x = 408;
+        }
+        //if player goes right off screen teleports to left side
+        if(this.x > 410){
+            this.x = 4;
+        }
+        //stops player from going below canvas
+        if(this.y > 400){
+            this.y = 390;
+        }
      }
+}
+class Gem{
+    constructor(){
+        this.sprite = 'images/Gem Green.png';
+        this.x = 4;
+        this.y = 70;
+    }
+    render(){
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
 }
 
 // Now instantiate your objects.
@@ -61,7 +92,7 @@ let allEnemies = [];
 
 //creates enemy objects
 
-function createEnemies(enemies = 1) {
+function createEnemies(enemies = 4) {
     allEnemies = [];
     for (var x = 0; x < enemies; x++) {
       allEnemies[x] = new Enemy();
@@ -70,6 +101,7 @@ function createEnemies(enemies = 1) {
   
   createEnemies();
   let player = new Player;
+ // let gem = new Gem;
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
