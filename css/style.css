@@ -1,3 +1,43 @@
 body {
     text-align: center;
 }
+.points {
+    padding-right: 10px;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+.lives {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+.modal {
+    text-align: center;
+    position: fixed;
+    z-index: 5;
+    background-color: rgb(255, 255, 255);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.2);
+    transition: all .3 ease-out;
+}
+.modal-is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+.modal-content {
+    position: absolute;
+    width: 100%;
+    top: 30%;    
+}
+.modal p {
+    font-weight: 600;
+}
+.modal-restart {
+    padding-left: 10px;
+    cursor: pointer;
+}
