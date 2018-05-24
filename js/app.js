@@ -1,9 +1,21 @@
 let score = 0,
 lives = 5;
 const scoreDisplay = document.querySelector(".points"),
-lifeDisplay = document.querySelector(".lives"),
+lifeDisplay = document.getElementById('lives'),
 modal = document.querySelector(".modal"),
 restartButton = document.querySelector('.modal-restart');
+
+function  initLives() {    
+    for (var x = 0; x < lives; x++) {  
+      let lifeSprite = document.createElement('IMG'); 
+      lifeSprite.src = 'images/Heart.png'; 
+      lifeSprite.className = "heart";    
+      lifeDisplay.appendChild(lifeSprite);                      
+    }      
+    return;
+}
+
+initLives();
 
 restartButton.addEventListener('click', function(){
     window.location.reload();
@@ -43,19 +55,19 @@ class Enemy {
             player.x = 206;
             player.y = 390;
             score -= 500;
-            lives -= 1;
-            scoreDisplay.innerHTML = "Score: " + score;
-            lifeDisplay.innerHTML = "Lives: " + lives;
+            lives--;   
+            if(lives == 0){
+                modal.classList.add('modal-is-visible');
+              }  
+            lifeDisplay.removeChild(lifeDisplay.children[lives - 1]);                                                               
+            scoreDisplay.innerHTML = "Score: " + score;            
         }              
         //increase bug speed at 5k score
         if(score >= 5000){
             this.speed = Math.floor(Math.random() * 300) + 150;
         }     
-        //call the game over modal if lives hit 0
-        if(lives == 0){
-            modal.classList.add('modal-is-visible');
-          }     
-    }    
+        //call the game over modal if lives hit 0           
+    }      
     // Draw the enemy on the screen, required method for game
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -68,7 +80,7 @@ class Player {
     constructor(){
         this.sprite = 'images/char-pink-girl.png';
         this.x = 206;
-        this.y = 390;               
+        this.y = 390;                              
     }    
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -88,8 +100,8 @@ class Player {
                 this.y += 80;
                 break;    
         }
-    }
-    update(){
+    }         
+    update(){        
         //sets player to start when reaching water        
         if(this.y < 10){            
             this.x = 206;

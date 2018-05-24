@@ -6,9 +6,12 @@ body {
     font-weight: bold;
     font-size: 1.25rem;
 }
-.lives {
+#lives {
     font-weight: bold;
-    font-size: 1.25rem;
+    font-size: 1.25rem;    
+}
+#lives img{
+    max-height: 50px;
 }
 .modal {
     text-align: center;
