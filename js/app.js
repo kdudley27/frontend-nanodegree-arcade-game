@@ -17,6 +17,7 @@ function  initLives() {
     return;
 }
 
+//character sprite selection
 charList.addEventListener('click', function(){
     let fullPath = event.target.src;
     let spriteName = fullPath.split('/').pop();
@@ -128,18 +129,31 @@ class Player {
         //stops player from going below canvas
         if(this.y > 400){
             this.y = 390;
-        }
+        }         
      }
 }
 class Gem{
     constructor(){
-        this.sprite = 'images/Gem Green.png';
-        this.x = 4;
-        this.y = 70;
+        this.spriteArray = ['images/Gem Green.png', 'images/Gem Blue.png', 'images/Gem Orange.png'];
+        this.sprite = this.spriteArray[Math.floor(Math.random()*this.spriteArray.length)];
+        this.xArray = [4, 105, 206, 307, 408];
+        this.yArray = [70, 150, 230];
+        this.x = this.xArray[Math.floor(Math.random()*this.xArray.length)];
+        this.y = this.yArray[Math.floor(Math.random()*this.yArray.length)];
     }
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    }
+    }   
+    update(){
+         // when player hits a gem increases score and randomly replaces gem     
+         if(this.x == player.x && this.y == player.y){                         
+            this.x = this.xArray[Math.floor(Math.random()*this.xArray.length)];
+            this.y = this.yArray[Math.floor(Math.random()*this.yArray.length)];
+            this.sprite = this.spriteArray[Math.floor(Math.random()*this.spriteArray.length)];
+            score += 1000;
+            scoreDisplay.innerHTML = "Score: " + score;
+        } 
+    } 
 }
 
 // Now instantiate your objects.
@@ -158,7 +172,7 @@ function createEnemies(enemies = 4) {
   
   createEnemies();
   let player = new Player;  
- // let gem = new Gem;
+  let gem = new Gem;
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
