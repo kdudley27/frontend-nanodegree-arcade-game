@@ -3,8 +3,10 @@ lives = 5;
 const scoreDisplay = document.querySelector(".points"),
 lifeDisplay = document.getElementById('lives'),
 modal = document.querySelector(".modal"),
-restartButton = document.querySelector('.modal-restart');
+restartButton = document.querySelector('.modal-restart'),
+charList = document.querySelector('.char-list');
 
+//Display heart sprites for lives of player
 function  initLives() {    
     for (var x = 0; x < lives; x++) {  
       let lifeSprite = document.createElement('IMG'); 
@@ -14,6 +16,12 @@ function  initLives() {
     }      
     return;
 }
+
+charList.addEventListener('click', function(){
+    let fullPath = event.target.src;
+    let spriteName = fullPath.split('/').pop();
+    player.sprite = "images/" + spriteName;
+});
 
 initLives();
 
@@ -47,8 +55,8 @@ class Enemy {
         if((this.y === 62 && player.y === 70) || (this.y === 145 && player.y === 150) || (this.y === 228 && player.y === 230)|| (this.y === 311 && player.y === 310)) {
             sameRow = true;
         }        
-        // Add 75 pixels margin to each side for bug width
-        if(player.x + 75 > this.x && player.x - 75 < this.x) {
+        // Add 70 pixels margin to each side for bug sprite width
+        if(player.x + 70 > this.x && player.x - 70 < this.x) {
             sameCol = true;
         }
         if(sameRow === true && sameCol === true) {
