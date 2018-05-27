@@ -34,9 +34,9 @@ class Enemy {
     constructor(){
         this.sprite = 'images/enemy-bug.png';
         this.x = Math.floor(Math.random() * 50) + 1;
-        this.rowArray = [62, 145, 228, 311];        
+        this.rowArray = [62, 145, 228];        
         this.y = this.rowArray[Math.floor(Math.random()*this.rowArray.length)];
-        this.speed = Math.floor(Math.random() * 200) + 100; 
+        this.speed = Math.floor(Math.random() * 100) + 50; 
     }
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
@@ -71,10 +71,17 @@ class Enemy {
             lifeDisplay.removeChild(lifeDisplay.children[lives - 1]);                                                               
             scoreDisplay.innerHTML = "Score: " + score;            
         }              
-        //increase bug speed at 5k score
+        //increase bug speed as score gets higher
         if(score >= 5000){
-            this.speed = Math.floor(Math.random() * 300) + 150;
+            this.speed = Math.floor(Math.random() * 150) + 100;            
         }     
+        if(score >= 10000){
+            this.speed = Math.floor(Math.random() * 250) + 150;
+            this.rowArray = [62, 145, 228, 311]; 
+        }  
+        if(score >= 20000){
+            this.speed = Math.floor(Math.random() * 350) + 200;            
+        }   
         //call the game over modal if lives hit 0           
     }      
     // Draw the enemy on the screen, required method for game
@@ -97,16 +104,16 @@ class Player {
     handleInput(keyCode){
         switch(event.keyCode){
             case 37:
-                this.x -= 101;
+                this.x -= 101;                
                 break;
             case 38:
-                this.y -= 80;
+                this.y -= 80;                
                 break;
             case 39:
-                this.x += 101;
+                this.x += 101;                
                 break;
             case 40:
-                this.y += 80;
+                this.y += 80;                
                 break;    
         }
     }         
@@ -184,5 +191,5 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+    player.handleInput(allowedKeys[e.keyCode]);    
 });
